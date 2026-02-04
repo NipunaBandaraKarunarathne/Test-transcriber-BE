@@ -18,7 +18,6 @@ io.on('connection', (socket) => {
   console.log('Client connected:', socket.id)
 
   socket.on('transcription', (text: string) => {
-    // Send to all other clients (desktop)
     socket.broadcast.emit('live-transcript', text)
   })
 
@@ -27,6 +26,8 @@ io.on('connection', (socket) => {
   })
 })
 
-httpServer.listen(3001, () => {
-  console.log('WebSocket server running on port 3001')
+const PORT = process.env.PORT || 3001
+
+httpServer.listen(PORT, () => {
+  console.log(`WebSocket server running on port ${PORT}`)
 })
